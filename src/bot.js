@@ -6,10 +6,9 @@ const client = new Client();
 const PREFIX = "$";
 
 const osuApi = new osu.Api(process.env.OSU_API_KEY, {
-  // baseUrl: sets the base api url (default: https://osu.ppy.sh/api)
-  notFoundAsError: true, // Throw an error on not found instead of returning nothing. (default: true)
-  completeScores: false, // When fetching scores also fetch the beatmap they are for (Allows getting accuracy) (default: false)
-  parseNumeric: false // Parse numeric values into numbers/floats, excluding ids
+  notFoundAsError: true,
+  completeScores: false,
+  parseNumeric: false
 });
 
 client.on('ready', () => {
@@ -25,13 +24,16 @@ client.on('message', (message) => {
       .substring(PREFIX.length)
       .split(/\s+/);
 
-    const userName = message.content.split(" ")[1];
+    const userInput = message.content.split(" ")[1];
     switch (CMD_NAME) {
       case "pic":
-        CommandsClient.pic(message, osuApi, userName)
+        CommandsClient.pic(message, osuApi, userInput)
         break;
       case "profile":
-        CommandsClient.profile(message, osuApi, userName)
+        CommandsClient.profile(message, osuApi, userInput)
+        break;
+      case "score":
+        CommandsClient.scores(messag, osuApi, userInput)
         break;
       default:
         message.channel.send("Not found :/")

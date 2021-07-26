@@ -1,14 +1,14 @@
 const { DiscordAPIError } = require("discord.js");
 const ApiClient = require("../api/ApiClient");
 
-async function profile(message, osuApi, userName) {
-  if (typeof userName !== "string") return;
+async function profile(message, osuApi, userInput) {
+  if (typeof userInput !== "string") return;
 
-  const userInfo = await osuApi.apiCall('/get_user', { u: userName });
+  const userInfo = await osuApi.apiCall('/get_user', { u: userInput });
   const user = userInfo[0];
 
   message.channel.send(`
-  Username: ${user.username}
+  userInput: ${user.userInput}
   Rank: ${user.pp_rank}
   PP: ${user.pp_raw}
   Playcount: ${user.playcount}
